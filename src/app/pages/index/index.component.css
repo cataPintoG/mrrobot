@@ -1,0 +1,16 @@
+ .inputSearch {
+    flex: 1; 
+    font-size: 20px;
+  }
+
+  .errorMessages{
+    color: red; font-weight: bold;
+  }
+
+  .barSearch{
+    display: flex; gap: 10px; margin-bottom: 15px;
+  }
+
+  .matsCard{
+    width: 50%; margin: 50px auto;
+  }

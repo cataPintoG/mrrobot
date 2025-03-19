@@ -1,0 +1,12 @@
+/* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body {
+    background: linear-gradient(120deg, #84fab0 0%, #8fd3f4 100%);
+  animation: moveGradient 6s infinite alternate;
+  }
+  @keyframes moveGradient {
+    0% { background-position: left; }
+    100% { background-position: right; }
+  }
