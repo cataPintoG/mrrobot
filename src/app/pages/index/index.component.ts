@@ -3,10 +3,10 @@ import { MatCardModule } from '@angular/material/card';
 import { MatTableModule } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
-import { EmployeeService } from '../../services/employee.service';
-import { Employee } from '../../Models/Employee';
+import { InitialTriageService } from '../../services/initialtriage.service';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-index',
@@ -17,14 +17,14 @@ import { CommonModule } from '@angular/common';
 })
 export class IndexComponent {
   
-  private employeeService = inject(EmployeeService);
-  public listEmployees: Employee[] = [];
+  //private employeeService = inject(EmployeeService);
+  //public listEmployees: Employee[] = [];
   public displayedColumns: string[] = ['Id', 'Name', 'Age' ,'MonthlySalary', 'AnnualSalary'];
   public errorMessage: string | null = null;
 
   constructor(private router: Router) {}
 
-  getEmployees(searchValue: string) {
+  /*getEmployees(searchValue: string) {
     searchValue = searchValue.trim();
 
     // If the field is empty, fetch all employees.
@@ -66,5 +66,5 @@ export class IndexComponent {
         this.errorMessage = error.detail || "An error occurred while fetching employee data.";
       }
     );
-  }
+  }*/
 }

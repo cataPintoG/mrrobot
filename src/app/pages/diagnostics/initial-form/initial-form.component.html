@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Triaje Médico</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            padding: 20px 0;
+        }
+        .form-container {
+            background-color: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        .form-label {
+            font-weight: 600;
+            color: #2c3e50;
+        }
+        .text-primary {
+            color: #0d6efd !important;
+        }
+        .btn-primary {
+            padding: 10px 30px;
+            font-weight: 600;
+        }
+        hr {
+            border-color: #dee2e6;
+            opacity: 0.5;
+        }
+        .form-control:read-only {
+            background-color: #f8f9fa;
+            border-color: #dee2e6;
+        }
+        .form-range {
+            height: 2.5rem;
+            padding: 0.5rem 0;
+        }
+        h5.text-primary {
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+        }
+        textarea.form-control {
+            resize: none;
+        }
+    </style>
+</head>
+<div class="container">
+    <div class="form-container">
+      <h2 class="mb-4 text-center text-primary">Valoración inicial - Triaje</h2>
+      <form>
+        <h5 class="text-primary mt-4 mb-3">Datos personales</h5>
+        <div class="row g-3">
+          <div class="col-md-6">
+            <label class="form-label">Identificación</label>
+            <input type="text" class="form-control" [(ngModel)]="identification" name="identification" placeholder="Ingrese el número de documento">
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Edad</label>
+            <input type="number" class="form-control" [(ngModel)]="age" name="age" placeholder="Ej. 25">
+          </div>
+          <div class="col-12">
+            <label class="form-label">Nombre completo</label>
+            <input type="text" class="form-control" [(ngModel)]="fullName" name="fullName" placeholder="Ingrese el nombre completo del paciente">
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Fecha y hora de ingreso</label>
+            <input type="datetime-local" class="form-control" [(ngModel)]="admissionDate" name="admissionDate" placeholder="Seleccione la fecha y hora">
+            <div class="form-text">Seleccione el momento en que ingresó el paciente.</div>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Sexo</label>
+            <select class="form-select" [(ngModel)]="sex" name="sex">
+              <option value="" disabled selected>Seleccione el sexo</option>
+              <option value="F">Femenino</option>
+              <option value="M">Masculino</option>
+              <option value="O">Otro</option>
+            </select>
+          </div>
+          <div class="col-12">
+            <label class="form-label">Dirección</label>
+            <input type="text" class="form-control" [(ngModel)]="address" name="address" placeholder="Ej. Calle 12 #45-67">
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Número de teléfono</label>
+            <input type="tel" class="form-control" [(ngModel)]="phoneNumber" name="phoneNumber" placeholder="Ej. 3001234567">
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Régimen</label>
+            <input type="text" class="form-control" [(ngModel)]="regime" name="regime" placeholder="Ej. Contributivo, Subsidiado">
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Estado del afiliado</label>
+            <input type="text" class="form-control" [(ngModel)]="affiliateStatus" name="affiliateStatus" placeholder="Ej. Activo, No aplica">
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Diagnóstico</label>
+            <input type="text" class="form-control" [(ngModel)]="diagnosis" name="diagnosis" placeholder="Diagnóstico principal">
+          </div>
+        </div>
+  
+        <hr class="my-4">
+  
+        <!-- Signos vitales -->
+        <h5 class="text-primary">Signos vitales</h5>
+        <div class="row g-3">
+          <div class="col-md-4">
+            <label class="form-label">Temperatura (°C)</label>
+            <input type="number" class="form-control" [(ngModel)]="temperature" name="temperature">
+          </div>
+          <div class="col-md-4">
+            <label class="form-label">Presión arterial sistólica (mmHg)</label>
+            <input type="number" class="form-control" [(ngModel)]="bloodPressureSystolic" name="bloodPressureSystolic">
+          </div>
+          <div class="col-md-4">
+            <label class="form-label">Presión arterial diastólica (mmHg)</label>
+            <input type="number" class="form-control" [(ngModel)]="bloodPressureDiastolic" name="bloodPressureDiastolic">
+          </div>
+          <div class="col-md-4">
+            <label class="form-label">Frecuencia cardiaca (lpm)</label>
+            <input type="number" class="form-control" [(ngModel)]="heartRate" name="heartRate">
+          </div>
+          <div class="col-md-4">
+            <label class="form-label">Frecuencia respiratoria (rpm)</label>
+            <input type="number" class="form-control" [(ngModel)]="respiratoryRate" name="respiratoryRate">
+          </div>
+          <div class="col-md-4">
+            <label class="form-label">Saturación de oxígeno (%)</label>
+            <input type="number" class="form-control" [(ngModel)]="oxygenSaturation" name="oxygenSaturation">
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Nivel de consciencia</label>
+            <select class="form-select" [(ngModel)]="consciousnessLevel" name="consciousnessLevel">
+              <option value="">Seleccione...</option>
+              <option value="Alerta">Alerta</option>
+              <option value="Respuesta verbal">Respuesta verbal</option>
+              <option value="Respuesta al dolor">Respuesta al dolor</option>
+              <option value="Inconsciente">Inconsciente</option>
+            </select>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label d-flex justify-content-between">
+                <span>Nivel de dolor (0 a 10)</span>
+                <span class="fw-bold text-primary">{{ painLevel }}</span>
+              </label>
+              <input type="range" class="form-range" min="0" max="10" [(ngModel)]="painLevel" name="painLevel">
+          </div>
+        </div>
+  
+        <hr class="my-4">
+  
+        <!-- Datos clínicos complementarios -->
+        <h5 class="text-primary">Información clínica</h5>
+        <div class="mb-3">
+          <label class="form-label">Motivo de consulta</label>
+          <textarea class="form-control" rows="2" [(ngModel)]="chiefComplaint" name="chiefComplaint"></textarea>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Síntomas principales</label>
+          <textarea class="form-control" rows="2" [(ngModel)]="mainSymptoms" name="mainSymptoms"></textarea>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Observaciones</label>
+          <textarea class="form-control" rows="3" [(ngModel)]="triageObservations" name="triageObservations"></textarea>
+        </div>
+  
+        <div class="text-end">
+          <button class="btn btn-primary mt-3" type="submit">Guardar valoración</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  

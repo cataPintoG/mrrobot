@@ -1,21 +1,20 @@
 import { HttpClient, HttpErrorResponse  } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { appsettings } from '../settings/appsettings';
-import { Employee } from '../Models/Employee';
 import { Observable,throwError  } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
-export class EmployeeService {
+export class InitialTriageService {
 
   private http = inject(HttpClient);
   private apiURL: string = appsettings.apiUrl + "employee/GetAllEmployees";
   private searchApiURL: string = appsettings.apiUrl + "employee/GetEmployeeById?id="; 
 
   constructor() { }
-
+/*
   listEmployee(): Observable<Employee[]> {
     return this.http.get<Employee[]>(this.apiURL).pipe(
       catchError(this.handleError)
@@ -47,5 +46,5 @@ export class EmployeeService {
       }));
     }
     return throwError(() => new Error('Error fetching employees'));
-  }
+  }*/
 }
