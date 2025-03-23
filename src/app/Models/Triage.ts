@@ -1,4 +1,4 @@
-export interface Employee
+export interface Triage
 {
     id : number;
     name : string;
