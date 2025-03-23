@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Triaje Médico</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            padding: 20px 0;
+        }
+        .form-container {
+            background-color: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        .form-label {
+            font-weight: 600;
+            color: #2c3e50;
+        }
+        .text-primary {
+            color: #0d6efd !important;
+        }
+        .btn-primary {
+            padding: 10px 30px;
+            font-weight: 600;
+        }
+        hr {
+            border-color: #dee2e6;
+            opacity: 0.5;
+        }
+        .form-control:read-only {
+            background-color: #f8f9fa;
+            border-color: #dee2e6;
+        }
+        .form-range {
+            height: 2.5rem;
+            padding: 0.5rem 0;
+        }
+        h5.text-primary {
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+        }
+        textarea.form-control {
+            resize: none;
+        }
+    </style>
+</head>
+<div class="container">
+    <div class="form-container">
+        <h2 class="mb-4 text-center text-primary">Autorización de Exámenes Diagnósticos</h2>
+        <form (ngSubmit)="onSubmit()">
+            <!-- Datos del Paciente -->
+            <h5 class="text-primary">Datos del Paciente</h5>
+            <div class="row g-3 mb-4">
+                <div class="col-md-6">
+                    <label class="form-label">Identificación del Paciente</label>
+                    <input type="text" class="form-control" [(ngModel)]="patientId" name="patientId" 
+                        placeholder="Ingrese el número de documento">
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Referencia Historia Clínica</label>
+                    <input type="text" class="form-control" [(ngModel)]="clinicalHistoryRef" name="clinicalHistoryRef" 
+                        placeholder="Número de historia clínica">
+                </div>
+            </div>
+
+            <!-- Información del Examen -->
+            <h5 class="text-primary">Información del Examen</h5>
+            <div class="row g-3">
+                <div class="col-12">
+                    <label class="form-label">Nombre del Examen</label>
+                    <select class="form-select" [(ngModel)]="examName" name="examName">
+                        <option value="" selected disabled>Seleccione el tipo de examen</option>
+                        <option *ngFor="let exam of examTypes" [value]="exam.value">
+                            {{exam.label}}
+                        </option>
+                    </select>
+                </div>
+
+
+                <div class="col-12">
+                    <label class="form-label">Información del Examen</label>
+                    <textarea class="form-control" [(ngModel)]="examInfo" name="examInfo" rows="3" 
+                        placeholder="Descripción detallada del examen a realizar"></textarea>
+                </div>
+
+                <div class="col-12">
+                    <label class="form-label">Contraindicaciones</label>
+                    <textarea class="form-control" [(ngModel)]="contraindications" name="contraindications" rows="3" 
+                        placeholder="Especifique las contraindicaciones del examen"></textarea>
+                </div>
+
+                <div class="col-12">
+                    <label class="form-label">Prerrequisitos</label>
+                    <textarea class="form-control" [(ngModel)]="prerequisites" name="prerequisites" rows="3" 
+                        placeholder="Especifique los prerrequisitos necesarios para el examen"></textarea>
+                </div>
+
+                <div class="col-12">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" [(ngModel)]="patientAuthorization" 
+                            name="patientAuthorization" id="patientAuthorization">
+                        <label class="form-check-label" for="patientAuthorization">
+                            Autorizo la realización del examen diagnóstico descrito anteriormente y confirmo que he sido informado de sus riesgos y beneficios.
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-end">
+                <button class="btn btn-primary mt-4" type="submit">Guardar Autorización</button>
+            </div>
+        </form>
+    </div>
+</div>
