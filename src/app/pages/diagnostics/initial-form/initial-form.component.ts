@@ -36,7 +36,7 @@ export class InitialFormComponent implements OnInit {
   mainSymptoms: string[] = [];
   triageObservations: string = '';
   taskId: string = '';
-   
+  
   private username: string = appsettings.username;
   private password: string = appsettings.password;
 
@@ -44,47 +44,51 @@ export class InitialFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
-      this.taskId = params['id'];
-      if (this.taskId) {
-        console.log('📌 taskId recibido:', this.taskId);
-
-        // ✅ Hacer login y luego pedir el contrato
-        this.bonitaService.login(this.username, this.password).subscribe({
-          next: (res) => {
-            console.log('✅ Login exitoso. Respuesta completa:', res);
-            const token = this.bonitaService.getToken();
-            console.log('📌 Token guardado:', token);
-          },
-          error: err => console.error('❌ Error en login', err)
-        });
-      }
+      this.taskId = params['id'];     
+      console.log('Id recibido',this.taskId) 
     });
   }
 
-  /**this.bonitaService.getContract(this.taskId).subscribe({
-              next: contract => {
-                console.log('📄 Contrato recibido:', contract);
-                // Aquí puedes usar el contrato para armar el formulario dinámicamente si quieres
-              },
-              error: err => console.error('❌ Error obteniendo contrato', err)
-            }); */
+ 
 
-  // Método para enviar datos a Bonita
   submitTriage() {
-    const triageData = {
-      temperature: this.temperature,
-      bloodPressure: {
-        systolic: this.bloodPressureSystolic,
-        diastolic: this.bloodPressureDiastolic
-      },
-      heartRate: this.heartRate,
-      respiratoryRate: this.respiratoryRate,
-      oxygenSaturation: this.oxygenSaturation,
-      consciousnessLevel: this.consciousnessLevel,
-      painLevel: this.painLevel,
-      chiefComplaint: this.chiefComplaint,
-      mainSymptoms: this.mainSymptoms,
-      observations: this.triageObservations
+    const triagePayload = {
+      historiaMedicaInput: {
+        temperature: 0,
+        bloodPressure: {
+          systolic: 0,
+          diastolic: 0
+        },
+        heartRate: 0,
+        respiratoryRate: 0,
+        oxygenSaturation: 0,
+        consciousnessLevel: '',
+        painLevel: 0,
+        chiefComplaint: '',
+        mainSymptoms: [],
+        observations: '',
+        identificacion: this.identification
+      }
     };
+
+    if (this.taskId) {
+      console.log('📌 taskId recibido:', this.taskId);
+
+      // ✅ Hacer login y luego pedir el contrato
+      this.bonitaService.login(this.username, this.password).subscribe({
+        next: (res) => {            
+          console.log('✅ Login exitoso');
+          this.bonitaService.executeUserTask(this.taskId, triagePayload).subscribe({
+            next: (res) => {
+              console.log('✅ Tarea ejecutada correctamente', res);
+            },
+            error: (err) => {
+              console.error('❌ Error al ejecutar la tarea', err);
+            }
+          });
+        },
+        error: err => console.error('❌ Error en login', err)
+      });
+    }  
   }  
 }
