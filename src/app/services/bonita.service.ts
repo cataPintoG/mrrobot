@@ -23,7 +23,9 @@ export class BonitaService {
       .set('password', password)
       .set('redirect', 'false');
 
-    return this.http.post('${this.apiUrl}/loginservice', body.toString(), {
+    return this.http.post(`${
+        this.apiUrl
+      }/loginservice`, body.toString(), {
       headers,
       withCredentials: true,
       observe: 'response'
