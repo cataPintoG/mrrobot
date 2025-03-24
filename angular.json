@@ -68,12 +68,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "AmarisFrontEnd:build:production",
-              "proxyConfig": "proxy.conf.json"
+              "buildTarget": "AmarisFrontEnd:build:production"              
             },
             "development": {
-              "buildTarget": "AmarisFrontEnd:build:development",
-              "proxyConfig": "proxy.conf.json"
+              "buildTarget": "AmarisFrontEnd:build:development"              
             }
           },
           "defaultConfiguration": "development"
