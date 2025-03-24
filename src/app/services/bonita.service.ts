@@ -1,17 +1,17 @@
-import { appsettings } from '../settings/appsettings';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
+import { appsettings } from '../settings/appsettings';
 
 @Injectable({
   providedIn: 'root'
 })
-export class InitialTriageService {
- 
-  private apiURL: string = appsettings.apiUrl;
+export class BonitaService {
+
+  private apiUrl: string = appsettings.apiUrl;
   private bonitaToken = '';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   login(username: string, password: string): Observable<any> {
     const headers = new HttpHeaders({
@@ -23,7 +23,7 @@ export class InitialTriageService {
       .set('password', password)
       .set('redirect', 'false');
 
-    return this.http.post(`${this.apiURL}/loginservice`, body.toString(), {
+    return this.http.post('${this.apiUrl}/loginservice', body.toString(), {
       headers,
       withCredentials: true,
       observe: 'response'
@@ -33,13 +33,23 @@ export class InitialTriageService {
         if (token) {
           this.bonitaToken = token;
           console.log('✅ Login exitoso. Token:', token);
-        } else {
-          console.warn('⚠️ No se recibió token');
         }
       })
     );
   }
+
   getToken(): string {
     return this.bonitaToken;
+  }
+
+  getContract(taskId: string): Observable<any> {
+    const headers = new HttpHeaders({
+      'X-Bonita-API-Token': this.bonitaToken
+    });
+
+    return this.http.get(`${this.apiUrl}/API/bpm/userTask/${taskId}/contract`, {
+      headers,
+      withCredentials: true
+    });
   }
 }

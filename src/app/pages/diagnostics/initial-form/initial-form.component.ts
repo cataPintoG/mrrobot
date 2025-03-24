@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { BonitaService } from './../../../services/bonita.service'; 
+import { appsettings } from '../../../settings/appsettings';
 
 @Component({
   selector: 'app-initial-form',
@@ -33,18 +35,39 @@ export class InitialFormComponent implements OnInit {
   chiefComplaint: string = '';
   mainSymptoms: string[] = [];
   triageObservations: string = '';
-  idCase: string = '';
+  taskId: string = '';
+   
+  private username: string = appsettings.username;
+  private password: string = appsettings.password;
 
-  constructor(private route: ActivatedRoute) {}
+  constructor(private route: ActivatedRoute,   private bonitaService: BonitaService) {}
 
   ngOnInit(): void {
-    this.route.queryParamMap.subscribe(params => {
-      console.log('Parámetros recibidos:', params.keys);
-      params.keys.forEach(key => {
-        console.log(`${key}: ${params.get(key)}`);
-      });
+    this.route.queryParams.subscribe(params => {
+      this.taskId = params['id'];
+      if (this.taskId) {
+        console.log('📌 taskId recibido:', this.taskId);
+
+        // ✅ Hacer login y luego pedir el contrato
+        this.bonitaService.login(this.username, this.password).subscribe({
+          next: (res) => {
+            console.log('✅ Login exitoso. Respuesta completa:', res);
+            const token = this.bonitaService.getToken();
+            console.log('📌 Token guardado:', token);
+          },
+          error: err => console.error('❌ Error en login', err)
+        });
+      }
     });
   }
+
+  /**this.bonitaService.getContract(this.taskId).subscribe({
+              next: contract => {
+                console.log('📄 Contrato recibido:', contract);
+                // Aquí puedes usar el contrato para armar el formulario dinámicamente si quieres
+              },
+              error: err => console.error('❌ Error obteniendo contrato', err)
+            }); */
 
   // Método para enviar datos a Bonita
   submitTriage() {
