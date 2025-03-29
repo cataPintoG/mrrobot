@@ -26,7 +26,7 @@ export class BonitaService {
 
     return this.http.post(`${
         this.apiUrl
-      }/loginservice`, body.toString(), {
+      }/login`, body.toString(), {
       headers,
       withCredentials: true,
       observe: 'response'
