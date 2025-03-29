@@ -4,11 +4,13 @@ import { FormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { BonitaService } from './../../../services/bonita.service'; 
 import { appsettings } from '../../../settings/appsettings';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+
 
 @Component({
   selector: 'app-initial-form',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule,MatSnackBarModule],
   templateUrl: './initial-form.component.html',
   styleUrl: './initial-form.component.css'
 })
@@ -40,7 +42,7 @@ export class InitialFormComponent implements OnInit {
   private username: string = appsettings.username;
   private password: string = appsettings.password;
 
-  constructor(private route: ActivatedRoute,   private bonitaService: BonitaService) {}
+  constructor(private route: ActivatedRoute,   private bonitaService: BonitaService, private snackBar: MatSnackBar) {}
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
@@ -54,20 +56,24 @@ export class InitialFormComponent implements OnInit {
   submitTriage() {
     const triagePayload = {
       historiaMedicaInput: {
-        temperature: 0,
-        bloodPressure: {
-          systolic: 0,
-          diastolic: 0
-        },
-        heartRate: 0,
-        respiratoryRate: 0,
-        oxygenSaturation: 0,
-        consciousnessLevel: '',
-        painLevel: 0,
-        chiefComplaint: '',
-        mainSymptoms: [],
-        observations: '',
-        identificacion: this.identification
+        numero_identificacion: this.identification,
+        edad: this.age,
+        nombre: this.fullName,
+        fecha_ingreso: this.admissionDate,
+        direccion: this.address,
+        numero_telefono: this.phoneNumber,
+        regimen: this.regime,
+        estado_afiliado: this.affiliateStatus,
+        diagnostico: this.diagnosis,
+        temperatura: this.temperature,
+        presion_sistolica: this.bloodPressureSystolic,
+        presion_diastolica: this.bloodPressureDiastolic,
+        frecuencia_cardiaca: this.heartRate,
+        saturacion_oxigeno: this.oxygenSaturation,
+        nivel_consciencia: this.consciousnessLevel,
+        nivel_dolor: this.painLevel,
+        motivo_consulta: this.chiefComplaint,
+        sintomas: this.mainSymptoms       
       }
     };
 
@@ -81,9 +87,21 @@ export class InitialFormComponent implements OnInit {
           this.bonitaService.executeUserTask(this.taskId, triagePayload).subscribe({
             next: (res) => {
               console.log('✅ Tarea ejecutada correctamente', res);
+              this.snackBar.open('¡Has terminado la tarea! Refresca la lista si es necesario.', 'Cerrar', {
+                duration: 4000,
+                horizontalPosition: 'right',
+                verticalPosition: 'bottom',
+                panelClass: ['snackbar-success']
+              });
             },
             error: (err) => {
               console.error('❌ Error al ejecutar la tarea', err);
+              this.snackBar.open('Error al enviar a bonita.', 'Cerrar', {
+                duration: 4000,
+                horizontalPosition: 'right',
+                verticalPosition: 'bottom',
+                panelClass: ['snackbar-error']
+              });
             }
           });
         },

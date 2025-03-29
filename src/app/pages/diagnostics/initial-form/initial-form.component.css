@@ -1,3 +1,8 @@
 ::placeholder {
     color: rgba(189, 234, 245, 0.925); /* Color oscuro con 40% de opacidad */    
   }
+  ::ng-deep .snackbar-success {
+    background-color: #35dcb8 !important;
+    color: #fff;
+    font-weight: 500;
+  }

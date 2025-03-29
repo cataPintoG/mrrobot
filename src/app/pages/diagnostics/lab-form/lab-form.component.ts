@@ -1,10 +1,15 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { MatSnackBar, MatSnackBarModule, MatSnackBarRef } from '@angular/material/snack-bar';
+import { ActivatedRoute } from '@angular/router';
+import { BonitaService } from './../../../services/bonita.service'; 
+import { appsettings } from '../../../settings/appsettings';
 
 @Component({
   selector: 'app-lab-form',
-  imports: [FormsModule,CommonModule],
+  standalone: true,
+  imports: [FormsModule,CommonModule, MatSnackBarModule],
   templateUrl: './lab-form.component.html',
   styleUrl: './lab-form.component.css'
 })
@@ -18,8 +23,18 @@ export class LabFormComponent {
     clinicalHistoryRef: string = '';
     examResults: string = '';
     patientId: string = '';
+    taskId: string = '';
+    private username: string = appsettings.username;
+    private password: string = appsettings.password;
   
+    constructor(private snackBar: MatSnackBar, private route: ActivatedRoute,   private bonitaService: BonitaService){}
 
+    ngOnInit(): void {
+      this.route.queryParams.subscribe(params => {
+        this.taskId = params['id'];     
+        console.log('Id recibido',this.taskId) 
+      });
+    }
     // Lista simple de exámenes
     examTypes = [
       { value: 'tac-cerebral', label: 'TAC Cerebral' },
@@ -36,17 +51,42 @@ export class LabFormComponent {
   
   
     onSubmit() {
-      console.log('Formulario enviado', {
-        examData: {
-          name: this.examName,
-          info: this.examInfo,
-          contraindications: this.contraindications,
-          prerequisites: this.prerequisites,
-          patientAuthorization: this.patientAuthorization,
-          clinicalHistoryRef: this.clinicalHistoryRef,
-          examResults: this.examResults,
-          patientId: this.patientId
+      const labPayload = {
+        examenLaboratorioInput: {
+          identificacion_paciente: this.patientId,
+          referencia_historia_clinica: this.clinicalHistoryRef,
+          nombres: this.examName,
+          informacion_examenes: this.examInfo,
+          contra_indicaciones: this.contraindications,
+          autorizacion_paciente: this.patientAuthorization           
         }
+      };
+      this.bonitaService.login(this.username, this.password).subscribe({
+        next: (res) => {            
+          console.log('✅ Login exitoso');
+          this.bonitaService.executeUserTask(this.taskId, labPayload).subscribe({
+            next: (res) => {
+              console.log('✅ Tarea ejecutada correctamente', res);
+              this.snackBar.open('¡Has terminado la tarea! Refresca la lista si es necesario.', 'Cerrar', {
+                duration: 4000,
+                horizontalPosition: 'right',
+                verticalPosition: 'bottom',
+                panelClass: ['snackbar-success']
+              });
+            },
+            error: (err) => {
+              console.error('❌ Error al ejecutar la tarea', err);
+              this.snackBar.open('Error al enviar a bonita.', 'Cerrar', {
+                duration: 4000,
+                horizontalPosition: 'right',
+                verticalPosition: 'bottom',
+                panelClass: ['snackbar-error']
+              });
+            }
+          });
+        },
+        error: err => console.error('❌ Error en login', err)
       });
-    }
+    }  
 }
+
