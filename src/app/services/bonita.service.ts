@@ -84,7 +84,7 @@ export class BonitaService {
         console.log('✅ Login exitoso. Token:');        
       },
       error: (err) => {
-        console.error('❌ Error en login HTTP:');
+        console.error('❌ Error en Buscar actividad HTTP:');
         console.error('🔴 Status:', err.status);
         console.error('📛 StatusText:', err.statusText);
         console.error('📍 URL:', err.url);
