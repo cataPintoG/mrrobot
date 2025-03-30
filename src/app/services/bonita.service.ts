@@ -75,22 +75,15 @@ export class BonitaService {
     return match ? match[2] : '';
   }
 
-  getContract(taskId: string): Observable<any> {
-    const headers = new HttpHeaders({
-      'X-Bonita-API-Token': this.bonitaToken
-    });
-
-    return this.http.get(`${this.apiUrl}/API/bpm/userTask/${taskId}/contract`, {
-      headers,
+  getTaskDetails(taskId: string) {
+    return this.http.get<any>(`${this.apiUrl}/task/${taskId}`,{
       withCredentials: true
     });
   }
 
-  getTaskDetails(taskId: string) {
-    return this.http.get<any>(`${this.apiUrl}/bpm/activity/${taskId}`);
-  }
-
   getCaseVariable(caseId: string, variableName: string) {
-    return this.http.get<any>(`${this.apiUrl}/bpm/caseVariable/${variableName}?case_id=${caseId}`);
+    return this.http.get<any>(`${this.apiUrl}/case-variable/${caseId}/${variableName}`,{
+      withCredentials:true
+    });
   }
 }
