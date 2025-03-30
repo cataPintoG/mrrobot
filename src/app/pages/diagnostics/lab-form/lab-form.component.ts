@@ -34,16 +34,26 @@ export class LabFormComponent {
         this.taskId = params['id'];     
         console.log('Id recibido',this.taskId) 
       });
+
       if (this.taskId) {
-        this.bonitaService.getTaskDetails(this.taskId).subscribe(task => {
-          const caseId = task.rootCaseId || task.caseId;
-  
-          this.bonitaService.getCaseVariable(caseId, 'historiaClinicaInput').subscribe(variable => {
-            const historia = variable?.value;
-  
-            this.patientId = historia?.numero_identificacion;
-            console.log('Número de identificación del paciente:', this.patientId);
-          });
+        this.bonitaService.getTaskDetails(this.taskId).subscribe({
+          next: (task) => {
+            const caseId = task.rootCaseId || task.caseId;
+      
+            this.bonitaService.getCaseVariable(caseId, 'historiaClinicaInput').subscribe({
+              next: (variable) => {
+                const historia = variable?.value;
+                this.patientId = historia?.numero_identificacion;
+                console.log('Número de identificación del paciente:', this.patientId);
+              },
+              error: (err) => {
+                console.error('❌ Error al obtener variable de caso:', err);
+              }
+            });
+          },
+          error: (err) => {
+            console.error('❌ Error al obtener detalles de la tarea:', err);
+          }
         });
       }
     }

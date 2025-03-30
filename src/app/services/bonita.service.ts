@@ -76,9 +76,27 @@ export class BonitaService {
   }
 
   getTaskDetails(taskId: string) {
-    return this.http.get<any>(`${this.apiUrl}/task/${taskId}`,{
+    return this.http.get<any>(`${this.apiUrl}/task/${taskId}`, {
       withCredentials: true
-    });
+    }).pipe(
+      tap({
+        next: (response) => {          
+        console.log('✅ Login exitoso. Token:');        
+      },
+      error: (err) => {
+        console.error('❌ Error en login HTTP:');
+        console.error('🔴 Status:', err.status);
+        console.error('📛 StatusText:', err.statusText);
+        console.error('📍 URL:', err.url);
+        console.error('🧾 Headers:', err.headers);
+        console.error('📦 Error completo:', err);
+        if (err.error instanceof ProgressEvent) {
+          console.error('🔌 Error de red/CORS (ProgressEvent)');
+        } else {
+          console.error('🧠 Detalles del error:', err.error);
+        }
+      }
+    }));
   }
 
   getCaseVariable(caseId: string, variableName: string) {
