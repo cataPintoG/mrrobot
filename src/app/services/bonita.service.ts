@@ -61,15 +61,11 @@ export class BonitaService {
     const token = this.getCookie('X-Bonita-API-Token'); 
     console.log("🧪 TaskIdFrontent:", taskId); 
     console.log("🧪 Token leído en frontend:", token); 
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'X-Bonita-API-Token': token
-    });
-
+    console.log("📦 Cookies en el frontend:", document.cookie);
     return this.http.post(
       `${this.apiUrl}/execute-task/${taskId}`,
       payload,
-      { headers, withCredentials: true }
+      { withCredentials: true } // 👈 sin headers extra
     );
 
   }
