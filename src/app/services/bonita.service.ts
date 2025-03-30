@@ -66,7 +66,8 @@ export class BonitaService {
 
   executeUserTask(taskId: string, payload: any): Observable<any> {
     const token = this.getCookie('X-Bonita-API-Token'); 
-
+    console.log("🧪 TaskIdFrontent:", taskId); 
+    console.log("🧪 Token leído en frontend:", token); 
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'X-Bonita-API-Token': token

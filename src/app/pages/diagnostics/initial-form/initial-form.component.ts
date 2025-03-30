@@ -84,6 +84,7 @@ export class InitialFormComponent implements OnInit {
       this.bonitaService.login(this.username, this.password).subscribe({
         next: (res) => {            
           console.log('✅ Login exitoso');
+          console.log("🚀 Enviando a ejecutar tarea con payload:", triagePayload);
           this.bonitaService.executeUserTask(this.taskId, triagePayload).subscribe({
             next: (res) => {
               console.log('✅ Tarea ejecutada correctamente', res);
