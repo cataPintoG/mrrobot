@@ -55,7 +55,7 @@ export class InitialFormComponent implements OnInit {
 
   submitTriage() {
     const triagePayload = {
-      historiaMedicaInput: {
+      historiaClinicaInput: {
         numero_identificacion: this.identification,
         edad: this.age,
         nombre: this.fullName,
