@@ -73,7 +73,7 @@ export class BonitaService {
     });
 
     return this.http.post(
-      `${this.apiUrl}/API/bpm/userTask/${taskId}/execution?assign=true`,
+      `${this.apiUrl}/execute-task/${taskId}`,
       payload,
       { headers, withCredentials: true }
     );
