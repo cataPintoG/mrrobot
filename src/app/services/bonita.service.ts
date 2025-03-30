@@ -30,18 +30,11 @@ export class BonitaService {
         this.apiUrl
       }/login`, body.toString(), {
       headers,
-      withCredentials: true,
-      observe: 'response'
+      withCredentials: true      
     }).pipe(
       tap({
-        next: (response) => {
-          const token = response.headers.get('X-Bonita-API-Token');
-          if (token) {
-            this.bonitaToken = token;
-            console.log('✅ Login exitoso. Token:', token);
-          } else {
-            console.warn('⚠️ Login respondió sin token.');
-          }
+        next: (response) => {          
+          console.log('✅ Login exitoso. Token:');        
         },
         error: (err) => {
           console.error('❌ Error en login HTTP:');
