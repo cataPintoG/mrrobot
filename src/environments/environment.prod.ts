@@ -1,4 +1,4 @@
 export const environment = {
   production: false,
-  apiUrl: 'https://fuzzy-corners-relax.loca.lt/api' 
+  apiUrl: 'https://9092-200-3-152-101.ngrok-free.app/api' 
 };
