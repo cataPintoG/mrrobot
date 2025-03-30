@@ -18,11 +18,13 @@ export class BonitaService {
     const headers = new HttpHeaders({
       'Content-Type': 'application/x-www-form-urlencoded'
     });
-    console.log("url ngrok" + this.apiUrl);
+    
     const body = new HttpParams()
       .set('username', username)
       .set('password', password)
       .set('redirect', 'false');
+      console.log("🌐 URL del proxy ngrok:", this.apiUrl);
+      console.log("📤 Enviando login con:", body.toString());
 
     return this.http.post(`${
         this.apiUrl
@@ -31,11 +33,28 @@ export class BonitaService {
       withCredentials: true,
       observe: 'response'
     }).pipe(
-      tap(response => {
-        const token = response.headers.get('X-Bonita-API-Token');
-        if (token) {
-          this.bonitaToken = token;
-          console.log('✅ Login exitoso. Token:', token);
+      tap({
+        next: (response) => {
+          const token = response.headers.get('X-Bonita-API-Token');
+          if (token) {
+            this.bonitaToken = token;
+            console.log('✅ Login exitoso. Token:', token);
+          } else {
+            console.warn('⚠️ Login respondió sin token.');
+          }
+        },
+        error: (err) => {
+          console.error('❌ Error en login HTTP:');
+          console.error('🔴 Status:', err.status);
+          console.error('📛 StatusText:', err.statusText);
+          console.error('📍 URL:', err.url);
+          console.error('🧾 Headers:', err.headers);
+          console.error('📦 Error completo:', err);
+          if (err.error instanceof ProgressEvent) {
+            console.error('🔌 Error de red/CORS (ProgressEvent)');
+          } else {
+            console.error('🧠 Detalles del error:', err.error);
+          }
         }
       })
     );
