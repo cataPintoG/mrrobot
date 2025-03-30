@@ -35,7 +35,7 @@ export class InitialFormComponent implements OnInit {
   painLevel: number = 0;
 
   chiefComplaint: string = '';
-  mainSymptoms: string[] = [];
+  mainSymptoms: string = '';
   triageObservations: string = '';
   taskId: string = '';
   
@@ -56,24 +56,26 @@ export class InitialFormComponent implements OnInit {
   submitTriage() {
     const triagePayload = {
       historiaClinicaInput: {
-        numero_identificacion: this.identification,
-        edad: this.age,
-        nombre: this.fullName,
-        fecha_ingreso: this.admissionDate,
-        direccion: this.address,
-        numero_telefono: this.phoneNumber,
-        regimen: this.regime,
-        estado_afiliado: this.affiliateStatus,
-        diagnostico: this.diagnosis,
-        temperatura: this.temperature,
-        presion_sistolica: this.bloodPressureSystolic,
-        presion_diastolica: this.bloodPressureDiastolic,
-        frecuencia_cardiaca: this.heartRate,
-        saturacion_oxigeno: this.oxygenSaturation,
-        nivel_consciencia: this.consciousnessLevel,
-        nivel_dolor: this.painLevel,
-        motivo_consulta: this.chiefComplaint,
-        sintomas: this.mainSymptoms       
+        numero_identificacion: this.identification || "",
+        edad: this.age ?? 0,
+        nombre: this.fullName || "",
+        fecha_ingreso: this.admissionDate 
+          ? new Date(this.admissionDate).toISOString() 
+          : new Date().toISOString(),     
+        direccion: this.address || "",
+        numero_telefono: this.phoneNumber || "",
+        regimen: this.regime || "",
+        estado_afiliado: this.affiliateStatus || "",
+        diagnostico: this.diagnosis || "",
+        temperatura: this.temperature ?? 0,
+        presion_sistolica: this.bloodPressureSystolic ?? 0,
+        presion_diastolica: this.bloodPressureDiastolic ?? 0,
+        frecuencia_cardiaca: this.heartRate ?? 0,
+        saturacion_oxigeno: this.oxygenSaturation ?? 0,
+        nivel_consciencia: this.consciousnessLevel || "",
+        nivel_dolor: this.painLevel ?? 0,
+        motivo_consulta: this.chiefComplaint || "",
+        sintomas: this.mainSymptoms || ""
       }
     };
 
