@@ -59,13 +59,11 @@
             <div class="row g-3 mb-4">
                 <div class="col-md-6">
                     <label class="form-label">Identificación del Paciente</label>
-                    <input type="text" class="form-control" [(ngModel)]="patientId" name="patientId" 
-                        placeholder="Ingrese el número de documento">
+                    <input type="text" class="form-control"  [value]="patientId" name="patientId" readonly>
                 </div>
                 <div class="col-md-6">
                     <label class="form-label">Referencia Historia Clínica</label>
-                    <input type="text" class="form-control" [(ngModel)]="clinicalHistoryRef" name="clinicalHistoryRef" 
-                        placeholder="Número de historia clínica">
+                    <input type="text" class="form-control" [(ngModel)]="clinicalHistoryRef" name="clinicalHistoryRef" readonly>
                 </div>
             </div>
 

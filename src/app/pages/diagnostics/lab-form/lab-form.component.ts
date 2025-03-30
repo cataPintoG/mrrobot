@@ -34,6 +34,18 @@ export class LabFormComponent {
         this.taskId = params['id'];     
         console.log('Id recibido',this.taskId) 
       });
+      if (this.taskId) {
+        this.bonitaService.getTaskDetails(this.taskId).subscribe(task => {
+          const caseId = task.rootCaseId || task.caseId;
+  
+          this.bonitaService.getCaseVariable(caseId, 'historiaClinicaInput').subscribe(variable => {
+            const historia = variable?.value;
+  
+            this.patientId = historia?.numero_identificacion;
+            console.log('Número de identificación del paciente:', this.patientId);
+          });
+        });
+      }
     }
     // Lista simple de exámenes
     examTypes = [

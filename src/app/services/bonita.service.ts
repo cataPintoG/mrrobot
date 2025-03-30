@@ -85,4 +85,12 @@ export class BonitaService {
       withCredentials: true
     });
   }
+
+  getTaskDetails(taskId: string) {
+    return this.http.get<any>(`${this.apiUrl}/bpm/activity/${taskId}`);
+  }
+
+  getCaseVariable(caseId: string, variableName: string) {
+    return this.http.get<any>(`${this.apiUrl}/bpm/caseVariable/${variableName}?case_id=${caseId}`);
+  }
 }
