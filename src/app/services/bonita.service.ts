@@ -81,7 +81,7 @@ export class BonitaService {
     }).pipe(
       tap({
         next: (response) => {          
-        console.log('✅ Login exitoso. Token:');        
+        console.log('✅ Login exitoso. Token:', response);        
       },
       error: (err) => {
         console.error('❌ Error en Buscar actividad HTTP:');
