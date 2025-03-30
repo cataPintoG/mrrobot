@@ -18,7 +18,7 @@ export class BonitaService {
     const headers = new HttpHeaders({
       'Content-Type': 'application/x-www-form-urlencoded'
     });
-    console.log(this.apiUrl);
+    console.log("url ngrok" + this.apiUrl);
     const body = new HttpParams()
       .set('username', username)
       .set('password', password)
