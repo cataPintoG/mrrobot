@@ -61,32 +61,38 @@ export class LabFormComponent {
           autorizacion_paciente: this.patientAuthorization           
         }
       };
-      this.bonitaService.login(this.username, this.password).subscribe({
-        next: (res) => {            
-          console.log('✅ Login exitoso');
-          this.bonitaService.executeUserTask(this.taskId, labPayload).subscribe({
-            next: (res) => {
-              console.log('✅ Tarea ejecutada correctamente', res);
-              this.snackBar.open('¡Has terminado la tarea! Refresca la lista si es necesario.', 'Cerrar', {
-                duration: 4000,
-                horizontalPosition: 'right',
-                verticalPosition: 'bottom',
-                panelClass: ['snackbar-success']
-              });
-            },
-            error: (err) => {
-              console.error('❌ Error al ejecutar la tarea', err);
-              this.snackBar.open('Error al enviar a bonita.', 'Cerrar', {
-                duration: 4000,
-                horizontalPosition: 'right',
-                verticalPosition: 'bottom',
-                panelClass: ['snackbar-error']
-              });
-            }
-          });
-        },
-        error: err => console.error('❌ Error en login', err)
-      });
+      if (this.taskId) {
+        console.log('📌 taskId recibido:', this.taskId);
+  
+        // ✅ Hacer login y luego pedir el contrato
+        this.bonitaService.login(this.username, this.password).subscribe({
+          next: (res) => {            
+            console.log('✅ Login exitoso');
+            console.log("🚀 Enviando a ejecutar tarea con payload:", labPayload);
+            this.bonitaService.executeUserTask(this.taskId, labPayload).subscribe({
+              next: (res) => {
+                console.log('✅ Tarea ejecutada correctamente', res);
+                this.snackBar.open('¡Has terminado la tarea! Refresca la lista si es necesario.', 'Cerrar', {
+                  duration: 4000,
+                  horizontalPosition: 'right',
+                  verticalPosition: 'bottom',
+                  panelClass: ['snackbar-success']
+                });
+              },
+              error: (err) => {
+                console.error('❌ Error al ejecutar la tarea', err);
+                this.snackBar.open('Error al enviar a bonita.', 'Cerrar', {
+                  duration: 4000,
+                  horizontalPosition: 'right',
+                  verticalPosition: 'bottom',
+                  panelClass: ['snackbar-error']
+                });
+              }
+            });
+          },
+          error: err => console.error('❌ Error en login', err)
+        });
+      }  
     }  
 }
 

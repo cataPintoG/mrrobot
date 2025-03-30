@@ -53,12 +53,15 @@
 <div class="container">
     <div class="form-container">
       <h2 class="mb-4 text-center text-primary">Valoración inicial - Triaje</h2>
-      <form (ngSubmit)="submitTriage()" #form="ngForm">
+      <form #form="ngForm" (ngSubmit)="submitTriage(form)" ngForm>
         <h5 class="text-primary mt-4 mb-3">Datos personales</h5>
         <div class="row g-3">
           <div class="col-md-6">
             <label class="form-label">Identificación</label>
-            <input type="text" class="form-control" [(ngModel)]="identification" name="identification" placeholder="Ingrese el número de documento">
+            <input type="text" class="form-control"  [class.is-invalid]="identificationCtrl.invalid && identificationCtrl.touched" [(ngModel)]="identification" name="identification" placeholder="Ingrese el número de documento" required #identificationCtrl="ngModel">
+            <div *ngIf="identificationCtrl.invalid && identificationCtrl.touched" class="invalid-feedback">
+              Este campo es obligatorio.
+            </div>
           </div>
           <div class="col-md-6">
             <label class="form-label">Edad</label>
@@ -166,7 +169,7 @@
         </div>
     
         <div class="text-end">
-          <button class="btn btn-primary mt-3" type="submit">Guardar valoración</button>
+          <button class="btn btn-primary mt-3" type="submit" [disabled]="form.invalid">Guardar valoración</button>
         </div>
       </form>
     </div>

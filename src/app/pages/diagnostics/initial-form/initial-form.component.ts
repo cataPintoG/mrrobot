@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { BonitaService } from './../../../services/bonita.service'; 
 import { appsettings } from '../../../settings/appsettings';
@@ -53,7 +53,15 @@ export class InitialFormComponent implements OnInit {
 
  
 
-  submitTriage() {
+  submitTriage(form: NgForm) {
+    if (form.invalid) {
+      this.snackBar.open('Por favor complete todos los campos obligatorios.', 'Cerrar', {
+        duration: 3000,
+        panelClass: ['snackbar-error']
+      });
+      return;
+    }
+
     const triagePayload = {
       historiaClinicaInput: {
         numero_identificacion: this.identification || "",
