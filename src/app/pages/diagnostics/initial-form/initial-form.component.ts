@@ -5,12 +5,12 @@ import { ActivatedRoute } from '@angular/router';
 import { BonitaService } from './../../../services/bonita.service'; 
 import { appsettings } from '../../../settings/appsettings';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
-
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-initial-form',
   standalone: true,
-  imports: [FormsModule,MatSnackBarModule],
+  imports: [FormsModule,MatSnackBarModule,CommonModule],
   templateUrl: './initial-form.component.html',
   styleUrl: './initial-form.component.css'
 })
