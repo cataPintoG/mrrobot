@@ -102,9 +102,58 @@ export class BonitaService {
     }));
   }
 
+  getBusinessVAriable(caseId: number){
+    return this.http.get<any>(`$${this.apiUrl}/historiaClinica?caseId=${caseId}`, { 
+        withCredentials: true,
+        headers: new HttpHeaders({
+          'ngrok-skip-browser-warning': 'true'
+        })
+       }).pipe(
+      tap({
+        next: (response) => {          
+        console.log('Historia clínicac se busca data:', response);        
+      },
+      error: (err) => {
+        console.error('❌ Error en Buscar historia clinica HTTP:');
+        console.error('🔴 Status:', err.status);
+        console.error('📛 StatusText:', err.statusText);
+        console.error('📍 URL:', err.url);
+        console.error('🧾 Headers:', err.headers);
+        console.error('📦 Error completo:', err);
+        if (err.error instanceof ProgressEvent) {
+          console.error('🔌 Error de red/CORS (ProgressEvent)');
+        } else {
+          console.error('🧠 Detalles del error:', err.error);
+        }
+      }
+    }));
+  }
+
   getCaseVariable(caseId: string, variableName: string) {
-    return this.http.get<any>(`${this.apiUrl}/case-variable/${caseId}/${variableName}`,{
-      withCredentials:true
-    });
+
+    return this.http.get<any>(`${this.apiUrl}/case-variable/${caseId}/${variableName}`, {
+      withCredentials: true,
+      headers: new HttpHeaders({
+        'ngrok-skip-browser-warning': 'true'
+      })
+    }).pipe(
+      tap({
+        next: (response) => {          
+        console.log('Tarea fue ejecutada con exito data:', response);        
+      },
+      error: (err) => {
+        console.error('❌ Error en Buscar actividad HTTP:');
+        console.error('🔴 Status:', err.status);
+        console.error('📛 StatusText:', err.statusText);
+        console.error('📍 URL:', err.url);
+        console.error('🧾 Headers:', err.headers);
+        console.error('📦 Error completo:', err);
+        if (err.error instanceof ProgressEvent) {
+          console.error('🔌 Error de red/CORS (ProgressEvent)');
+        } else {
+          console.error('🧠 Detalles del error:', err.error);
+        }
+      }
+    }));
   }
 }

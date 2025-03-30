@@ -42,11 +42,10 @@ export class LabFormComponent {
             console.log('✅ Login exitoso');
             this.bonitaService.getTaskDetails(this.taskId).subscribe({
               next: (task) => {
-                const caseId = task.rootCaseId || task.caseId;
-          
-                this.bonitaService.getCaseVariable(caseId, 'historiaClinicaInput').subscribe({
-                  next: (variable) => {
-                    const historia = variable?.value;
+                const caseId = task.rootCaseId || task.caseId;          
+                this.bonitaService.getBusinessVAriable(caseId).subscribe({
+                  next: (result) => {
+                    const historia = result;
                     this.patientId = historia?.numero_identificacion;
                     console.log('Número de identificación del paciente:', this.patientId);
                   },
