@@ -77,7 +77,10 @@ export class BonitaService {
 
   getTaskDetails(taskId: string) {
     return this.http.get<any>(`${this.apiUrl}/task/${taskId}`, {
-      withCredentials: true
+      withCredentials: true,
+      headers: new HttpHeaders({
+        'ngrok-skip-browser-warning': 'true'
+      })
     }).pipe(
       tap({
         next: (response) => {          
