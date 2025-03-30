@@ -103,7 +103,7 @@ export class BonitaService {
   }
 
   getBusinessVAriable(caseId: number){
-    return this.http.get<any>(`$${this.apiUrl}/historiaClinica?caseId=${caseId}`, { 
+    return this.http.get<any>(`${this.apiUrl}/historiaClinica?caseId=${caseId}`, { 
         withCredentials: true,
         headers: new HttpHeaders({
           'ngrok-skip-browser-warning': 'true'
