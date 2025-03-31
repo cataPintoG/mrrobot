@@ -47,6 +47,7 @@ export class LabFormComponent {
                   next: (result) => {
                     const historia = result;
                     this.patientId = historia?.numero_identificacion;
+                    this.clinicalHistoryRef = historia?.persistenceId;
                     console.log('Número de identificación del paciente:', this.patientId);
                   },
                   error: (err) => {
