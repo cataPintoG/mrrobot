@@ -103,7 +103,11 @@
           </div>
           <div class="col-md-6">
             <label class="form-label">Estado del afiliado</label>
-            <input type="text" class="form-control" [(ngModel)]="affiliateStatus" name="affiliateStatus" placeholder="Ej. Activo, No aplica">
+            <select class="form-select" [(ngModel)]="affiliateStatus" name="affiliateStatus">
+              <option value="">Seleccione...</option>
+              <option value="Contributivo">Activo</option>
+              <option value="Subsidiado">Inactivo</option>
+            </select>            
           </div>
           <div class="col-md-6">
             <label class="form-label">Diagnóstico</label>
