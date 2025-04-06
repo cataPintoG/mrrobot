@@ -95,7 +95,11 @@
           </div>
           <div class="col-md-6">
             <label class="form-label">Régimen</label>
-            <input type="text" class="form-control" [(ngModel)]="regime" name="regime" placeholder="Ej. Contributivo, Subsidiado">
+            <select class="form-select" [(ngModel)]="regime" name="regime">
+              <option value="">Seleccione...</option>
+              <option value="Contributivo">Contributivo</option>
+              <option value="Subsidiado">Subsidiado</option>
+            </select>
           </div>
           <div class="col-md-6">
             <label class="form-label">Estado del afiliado</label>
