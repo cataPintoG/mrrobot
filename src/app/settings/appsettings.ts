@@ -1,4 +1,6 @@
 export const appsettings = {    
     username: "AuxiliarUrgencias",
-    password: "bpm1"
+    password: "bpm1",
+    usernameLab: "Laboratorio",
+    passwordLab: "bpm"
 }

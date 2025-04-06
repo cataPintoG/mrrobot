@@ -24,8 +24,8 @@ export class LabFormComponent {
     examResults: string = '';
     patientId: string = '';
     taskId: string = '';
-    private username: string = appsettings.username;
-    private password: string = appsettings.password;
+    private username: string = appsettings.usernameLab;
+    private password: string = appsettings.passwordLab;
   
     constructor(private snackBar: MatSnackBar, private route: ActivatedRoute,   private bonitaService: BonitaService){}
 
