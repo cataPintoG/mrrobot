@@ -66,16 +66,15 @@ export class LabFormComponent {
     }
     // Lista simple de exámenes
     examTypes = [
-      { value: 'tac-cerebral', label: 'TAC Cerebral' },
-      { value: 'tac-torax', label: 'TAC de Tórax' },
-      { value: 'tac-abdominal', label: 'TAC Abdominal' },
-      { value: 'eco-abdominal', label: 'Ecografía Abdominal' },
-      { value: 'eco-pelvica', label: 'Ecografía Pélvica' },
-      { value: 'eco-obstetrica', label: 'Ecografía Obstétrica' },
-      { value: 'rx-torax', label: 'Radiografía de Tórax' },
-      { value: 'rx-columna', label: 'Radiografía de Columna' },
-      { value: 'rmn-cerebral', label: 'Resonancia Magnética Cerebral' },
-      { value: 'rmn-columna', label: 'Resonancia Magnética de Columna' }
+      { value: 'hemograma', label: 'Hemograma' },
+      { value: 'glicemia', label: 'Glucosa' },
+      { value: 'creatinina', label: 'Creatinina' },      
+      { value: 'colesterol-total', label: 'Colesterol Total' },
+      { value: 'trigliceridos', label: 'Triglicéridos' },
+      { value: 'electrolitos', label: 'Electrolitos' },
+      { value: 'uroanalisis', label: 'Uroanálisis' },
+      { value: 'prueba-embarazo', label: 'Prueba de Embarazo' },
+      { value: 'vih', label: 'Prueba de VIH' }
     ];
   
   
