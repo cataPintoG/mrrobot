@@ -1,4 +1,4 @@
 export const environment = {
   production: false,
-  apiUrl: 'https://degrees-praise-diseases-examines.trycloudflare.com/api' 
+  apiUrl: 'https://swap-digital-motor-asylum.trycloudflare.com/api' 
 };
